@@ -1,6 +1,10 @@
 Tmux
 ====
 
+Anatomy of a Tmux Session
+-------------------------
+Tmux has 'sessions', 'windows', and 'panes'.
+
 Sessions
 --------
 
@@ -21,6 +25,9 @@ List sessions:
 $ tmux ls
 ```
 
+or from inside a session:
+`CTRL-b s`
+
 Attach to a session
 
 ```console
@@ -29,19 +36,40 @@ $ tmux a -t <session_name>|<session_id>
 
 Note `a` is an optional shorthand for `attach`
 
+Name a session:
+`CTRL-b $`
+
 Kill a session:
 
 ```console
 $ tmux kill-session -t <session_name>|<session_id>
 ```
 
+Windows
+-------
+
+Create a new window:
+`<prefix> c`
+
+Rename current window:
+`<prefix> ,`
+
+Switch windows:
+- cycle next: `<prefix> n`
+- cycle previous: `<prefix> p`
+- toggle last selected: `<prefix> l`
+- list all windows (and sessions?): `<prefix> w`
+- switch to window #: `<prefix> <number>`
+- find window: `<prefix> f`
+
+
 Panes
 -----
 
-Split horizontally (i.e., create a horizontal divider):
+Split vertically (i.e., turn pane into two vertically-stacked panes aka create a horizontal divider):
 `CTRL-b "`
 
-Split vertically (create a vertical divider):
+Split horizontally (turn pane into two horizontally side-by-side panes aka create a vertical divider):
 `CTRL-b %`
 
 Navigate to another pane:
@@ -56,10 +84,25 @@ Switch between current and previous pane:
 Kill current pane:
 `CTRL-b x`
 
+Toggle pane zoom:
+`CTRL-b z`
+
 Server
 ------
 
 Kill the tmux server, along with all sessions:
 ```console
 $ tmux kill-server
+```
+
+Customisation
+-------------
+
+It's possible to customise tmux, including replacing the `CTRL-b` keystroke (e.g.,
+`CTRL-a`).
+
+The config file lives at `~/.tmux.conf`. To rebind the prefix keystroke, add the 
+following line:
+```
+set -g prefix Ctrl-a
 ```
