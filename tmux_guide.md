@@ -104,5 +104,5 @@ It's possible to customise tmux, including replacing the `CTRL-b` keystroke (e.g
 The config file lives at `~/.tmux.conf`. To rebind the prefix keystroke, add the 
 following line:
 ```
-set -g prefix Ctrl-a
+set -g prefix C-a
 ```
