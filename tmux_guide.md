@@ -35,6 +35,7 @@ $ tmux a -t <session_name>|<session_id>
 ```
 
 Note `a` is an optional shorthand for `attach`
+Note `a` on its own without `-t <session>` will attach to the first available session
 
 Name a session:
 `CTRL-b $`
@@ -44,6 +45,8 @@ Kill a session:
 ```console
 $ tmux kill-session -t <session_name>|<session_id>
 ```
+
+Note you can also kill tmux entirely with `killall tmux`.
 
 Windows
 -------
