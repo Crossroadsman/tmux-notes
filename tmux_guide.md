@@ -5,50 +5,79 @@ Anatomy of a Tmux Session
 -------------------------
 Tmux has 'sessions', 'windows', and 'panes'.
 
+
+General Commmands
+-----------------
+
+- `<prefix> ?`: get help
+
 Sessions
 --------
 
 ### Start a new session ###
 
 ```console
-$ tmux new -s <session_name>
+$ tmux new [-s <session_name>]
 ```
 
-Note the `-s` argument is optional, omit to create an unnameed session.
+Note the `-s` argument is optional, omit to create an unnamed session. 
+
+Throughout tmux, depending on context, `-s` ('`s`ession') and `-t` 
+('[`t`arget] client') get used to refer to the subject entity 
+(session/window/etc).
 
 ### Detach from session ###
 
-`CTRL+b d`
+```console
+$ tmux detach
+```
+
+`<prefix> d`
+
 
 ### List sessions ###
 
 ```console
 $ tmux ls
+bash: 4 windows (created Mon Feb 11 23:10:06 2019) [80x50]
+tmux: 1 windows (created Tue Feb 12 14:15:01 2019) [80x50] (attached)
 ```
 
 or from inside a session:
-`CTRL-b s`
+`<prefix> s`
+
+You can use the cursors to preview and select a session.
+
 
 ### Attach to a session ###
 
 ```console
-$ tmux a -t <session_name>|<session_id>
+$ tmux a [-t <session_name>]
 ```
 
-Note `a` is an optional shorthand for `attach`
-Note `a` on its own without `-t <session>` will attach to the first available session
+Notes:
+- `a` is shorthand for `attach`
+- `a` on its own without `-t <session>` will attach to the first available 
+  session
+- `<session_name>` is the name if a named session, number if unnamed
+
+Attempting to attach to a session while already attached to another session
+will be treated as an attempt to create a nested sessions, which by default 
+tmux disallows.
+
 
 ### Name a session ###
 
-`CTRL-b $`
+`<prefix> $`
+
 
 ### Kill a session ###
 
 ```console
-$ tmux kill-session -t <session_name>|<session_id>
+$ tmux kill-session -t <session_name>
 ```
 
-Note you can also kill tmux entirely with `killall tmux`
+Note you can also kill tmux entirely with `killall tmux`.
 
 
 Windows
@@ -90,30 +119,44 @@ Panes
 ### Split vertically ###
 (i.e., turn pane into two vertically-stacked panes aka create a horizontal divider):
 
-`CTRL-b "`
+`<prefix ">`
+
+(or remap to `<prefix> -`)
 
 ### Split horizontally ###
-(turn pane into two horizontally side-by-side panes aka create a vertical divider):
+(turn pane into two horizontal side-by-side panes aka create a vertical divider):
 
-`CTRL-b %`
+`<prefix> %`
+
+(or remap to `<prefix> |`)
 
 ### Navigate to another pane ###
 
-`CTRL-b <arrow_key>`
+`<prefix> <arrow_key>`
 
 ### Cycle through panes ###
 
-`CTRL-b o`
+`<prefix> o`
 
 ### Switch between current and previous pane ###
 
-`CTRL-b ;`
+`<prefix> ;`
 
 ### Kill current pane ###
-`CTRL-b x`
+
+`<prefix> x`
 
 ### Toggle pane zoom ###
-`CTRL-b z`
+
+`<prefix> z`
+
+### Break a pane into its own window ###
+
+`<prefix> !`
+
+See this [Superuser answer](https://superuser.com/a/272901) for a guide to
+joining a window back into a pane of another window (i.e., the closest thing to
+a reverse of this operation).
 
 ### Resize panes ###
 
@@ -121,8 +164,9 @@ Start by entering `<prefix> :` then type:
 
 - `resize-pane [-t <pane>] <direction> [amount]`
 
-where `<pane>` is the id of the pane; direction is blank for down or `-U`/`-L`/`-R` for
-up/left/right respectively; amount is the number of cells to resize by.
+where `<pane>` is the id of the pane; direction  `-U`/`-D`/`-L`/`-R` for
+up/down/left/right respectively; amount is the number of cells to resize by (1
+cell if unspecified).
 
 
 Server
