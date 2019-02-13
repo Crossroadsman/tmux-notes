@@ -103,6 +103,10 @@ or
 $ tmux rename-window
 ```
 
+### Kill current window ###
+
+`<prefix> &`
+
 ### Switch windows ###
 
 - cycle next: `<prefix> n`
