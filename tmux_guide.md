@@ -127,6 +127,13 @@ Panes
 
 (or remap to `<prefix> -`)
 
+You can also use the command:
+```console
+$ tmux split-window -v [-p <n>]
+```
+
+Where `<n>` is the size of the new pane as a percentage of the pre-split pane.
+
 ### Split horizontally ###
 (turn pane into two horizontal side-by-side panes aka create a vertical divider):
 
